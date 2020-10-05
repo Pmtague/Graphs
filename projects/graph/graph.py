@@ -65,7 +65,7 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        # Add starting vertex to visited list
+        # Start a visited set to store nodes that have been visited
         visited = set()
         # Instantiate a queue
         q = Queue()
@@ -73,11 +73,17 @@ class Graph:
         q.enqueue(starting_vertex)
         # While the queue is not empty
         while q.size() > 0:
+            # Dequeue the current queue head
             current_vertex = q.dequeue()
+            # If the current vertex (dequeued head) is not in visited
             if current_vertex not in visited:
+                # Print the current vertex
                 print(current_vertex)
+                # Add the current vertex to the visited set
                 visited.add(current_vertex)
+                # For each neighbor of the current vertex
                 for next_vertex in self.get_neighbors(current_vertex):
+                    # Add the neighbors to the queue
                     q.enqueue(next_vertex)
 
     def dft(self, starting_vertex):
