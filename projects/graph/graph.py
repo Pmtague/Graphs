@@ -1,7 +1,35 @@
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
+
+class Stack():
+    def __init__(self):
+        self.stack = []
+    def push(self, value):
+        self.stack.append(value)
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop()
+        else:
+            return None
+    def size(self):
+        return len(self.stack)
+
 """
 Simple graph implementation
 """
-from util import Stack, Queue  # These may come in handy
+# import sys
+# sys.path.append('./util.py')
+# from util import Stack, Queue  # These may come in handy
 
 class Graph:
 
@@ -13,26 +41,44 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        # Add the new vertex_id to the dictionary of vertices and set the value to an empty set
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        # If both vertices are in self.vertices
+        if v1 in self.vertices and v2 in self.vertices:
+            # Add the connecting vertex (v2) to the set labeled self.vertices[v1]
+            self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        # Return the set stored as self.vertices[vertex_id]
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Add starting vertex to visited list
+        visited = set()
+        # Instantiate a queue
+        q = Queue()
+        # Add starting vertex to the queue
+        q.enqueue(starting_vertex)
+        # While the queue is not empty
+        while q.size() > 0:
+            current_vertex = q.dequeue()
+            if current_vertex not in visited:
+                print(current_vertex)
+                visited.add(current_vertex)
+                for next_vertex in self.get_neighbors(current_vertex):
+                    q.enqueue(next_vertex)
 
     def dft(self, starting_vertex):
         """
